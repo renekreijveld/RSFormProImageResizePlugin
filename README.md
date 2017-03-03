@@ -1,4 +1,4 @@
-# plg_rsfp_imageresize
+# RSForm!Pro file upload Image Resize plugin
 Joomla 3.x RSForm!Pro Plugin to automatically resize an image after it is uploaded through a file upload field.
 You can define multiple image sizes so that with Responsive Design you can use different file formats.
 
