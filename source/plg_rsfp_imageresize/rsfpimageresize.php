@@ -49,7 +49,7 @@ class plgSystemRSFPImageResize extends JPlugin
 		$lg_height = RSFormProHelper::getConfig('imgresize_lg_height');
 
 		// Initialize logging
-		if ($do_logging == 1)
+		if ($imgresize_log == 1)
 		{
 			jimport( 'joomla.log.log' );
 			JLog::addLogger(array('text_file' => 'imageupload.' . date('Y-m-d') . '.log.php'), JLog::ALL, array('imageupload'));
@@ -62,7 +62,7 @@ class plgSystemRSFPImageResize extends JPlugin
 		$file = $params['file'];
 		$name = $params['name'];
 
-		if ($do_logging == 1) JLog::add(JText::_('Start processing file ' . $name), JLog::INFO, 'imageupload');
+		if ($imgresize_log == 1) JLog::add(JText::_('Start processing file ' . $name), JLog::INFO, 'imageupload');
 
 		$upload = pathinfo($file);
 		$image  = new ImageResize($file);
@@ -72,7 +72,7 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
 			$image->resizeToBestFit($tn_width, $tn_height);
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-tn.' . $upload["extension"]);
-			if ($do_logging == 1) JLog::add(JText::_('Saved thumbnail version ' . $upload["filename"] . '-tn.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved thumbnail version ' . $upload["filename"] . '-tn.' . $upload["extension"]), JLog::INFO, 'imageupload');
 		}
 
 		// Extra small
@@ -80,7 +80,7 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
 			$image->resizeToBestFit($xs_width, $xs_height);
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-xs.' . $upload["extension"]);
-			if ($do_logging == 1) JLog::add(JText::_('Saved extra small version ' . $upload["filename"] . '-xs.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved extra small version ' . $upload["filename"] . '-xs.' . $upload["extension"]), JLog::INFO, 'imageupload');
 		}
 
 		// Small
@@ -88,7 +88,7 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
 			$image->resizeToBestFit($sm_width, $sm_height);
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-sm.' . $upload["extension"]);
-			if ($do_logging == 1) JLog::add(JText::_('Saved small version ' . $upload["filename"] . '-sm.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved small version ' . $upload["filename"] . '-sm.' . $upload["extension"]), JLog::INFO, 'imageupload');
 		}
 
 		// Medium
@@ -96,7 +96,7 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
 			$image->resizeToBestFit($md_width, $md_height);
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-md.' . $upload["extension"]);
-			if ($do_logging == 1) JLog::add(JText::_('Saved medium version ' . $upload["filename"] . '-md.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved medium version ' . $upload["filename"] . '-md.' . $upload["extension"]), JLog::INFO, 'imageupload');
 		}
 
 		// Large
@@ -104,10 +104,10 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
 			$image->resizeToBestFit($lg_width, $lg_height);
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-lg.' . $upload["extension"]);
-			if ($do_logging == 1) JLog::add(JText::_('Saved large version ' . $upload["filename"] . '-lg.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved large version ' . $upload["filename"] . '-lg.' . $upload["extension"]), JLog::INFO, 'imageupload');
 		}
 
-		if ($do_logging == 1) JLog::add(JText::_('End RSFP Image Resize'), JLog::INFO, 'imageupload');
+		if ($imgresize_log == 1) JLog::add(JText::_('End RSFP Image Resize'), JLog::INFO, 'imageupload');
 
 		return;
 
