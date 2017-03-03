@@ -6,6 +6,9 @@ Settings can be managed through the RSForm!Pro configuration screen.
 
 ## Installation instructions:
 
+Download the installer file: https://github.com/renekreijveld/plg_rsfp_imageresize/blob/master/source/plg_rsfp_imageresize/plg_rsfp_imageresize.zip?raw=true
+
+
 **Credits:**
 * **EventViva** for their **php-image-resize** library (License MIT): https://packagist.org/packages/eventviva/php-image-resize
 * **Peter Martin** for **example code** on image resizing and how to use composer
