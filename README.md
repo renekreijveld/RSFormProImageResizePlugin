@@ -12,7 +12,7 @@ Settings can be managed through the RSForm!Pro configuration screen.
 
 ## Installation instructions
 
-* Download the [Installer file](https://github.com/renekreijveld/plg_rsfp_imageresize/blob/master/source/plg_rsfp_imageresize/plg_rsfp_imageresize.zip?raw=true)
+* Download the [Installer file](https://github.com/renekreijveld/RSFormProImageResizePlugin/releases/download/1.0/plg_rsfp_imageresize.zip)
 
 * Install through the normal Joomla extension installer
 
