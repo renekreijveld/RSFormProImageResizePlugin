@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="system" method="upgrade">
+	<name>System - RSForm! Pro Image Resize</name>
+	<author>Rene Kreijveld Webdevelopment</author>
+	<creationDate>Februari 2017</creationDate>
+	<copyright>(C) 2017 www.renekreijveld.nl</copyright>
+	<license>GNU General Public License version 3</license>
+	<authorEmail>info@renekreijveld.nl</authorEmail>
+	<authorUrl>www.renekreijveld.nl</authorUrl>
+	<version>1.0.0</version>
+	<description><![CDATA[PLG_SYSTEM_RSFPIMAGERESIZE_DESC]]></description>
+	<scriptfile>script.php</scriptfile>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/install.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/uninstall.sql</file>
+		</sql>
+	</uninstall>
+
+	<files>
+		<folder>sql</folder>
+		<folder>vendor</folder>
+		<filename plugin="rsfpimageresize">rsfpimageresize.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_rsfpimageresize.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_rsfpimageresize.sys.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.plg_system_rsfpimageresize.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.plg_system_rsfpimageresize.sys.ini</language>
+	</languages>
+
+</extension>
