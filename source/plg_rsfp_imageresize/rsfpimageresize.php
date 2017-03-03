@@ -62,49 +62,61 @@ class plgSystemRSFPImageResize extends JPlugin
 		$file = $params['file'];
 		$name = $params['name'];
 
-		if ($imgresize_log == 1) JLog::add(JText::_('Start processing file ' . $name), JLog::INFO, 'imageupload');
-
 		$upload = pathinfo($file);
 		$image  = new ImageResize($file);
+		$org_width = $image->getSourceWidth();
+		$org_height = $image->getSourceHeight();
+
+		if ($imgresize_log == 1) JLog::add(JText::_('Start processing file ' . $name . ' ' . $org_width . 'x' . $org_height), JLog::INFO, 'imageupload');
 
 		// Thumbnail
 		if (($tn_width > 0 || $tn_height > 0) && $do_tn == 1)
 		{
 			$image->resizeToBestFit($tn_width, $tn_height);
+			$dst_width = floor($image->getDestWidth());
+			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-tn.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved thumbnail version ' . $upload["filename"] . '-tn.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved thumbnail version ' . $upload["filename"] . '-tn.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
 		}
 
 		// Extra small
 		if (($xs_width > 0 || $xs_height > 0) && $do_xs == 1)
 		{
 			$image->resizeToBestFit($xs_width, $xs_height);
+			$dst_width = floor($image->getDestWidth());
+			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-xs.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved extra small version ' . $upload["filename"] . '-xs.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved extra small version ' . $upload["filename"] . '-xs.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
 		}
 
 		// Small
 		if (($sm_width > 0 || $sm_height > 0) && $do_sm == 1)
 		{
 			$image->resizeToBestFit($sm_width, $sm_height);
+			$dst_width = floor($image->getDestWidth());
+			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-sm.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved small version ' . $upload["filename"] . '-sm.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved small version ' . $upload["filename"] . '-sm.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
 		}
 
 		// Medium
 		if (($md_width > 0 || $md_height > 0) && $do_md == 1)
 		{
 			$image->resizeToBestFit($md_width, $md_height);
+			$dst_width = floor($image->getDestWidth());
+			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-md.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved medium version ' . $upload["filename"] . '-md.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved medium version ' . $upload["filename"] . '-md.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
 		}
 
 		// Large
 		if (($lg_width > 0 || $lg_height > 0) && $do_lg == 1)
 		{
 			$image->resizeToBestFit($lg_width, $lg_height);
+			$dst_width = floor($image->getDestWidth());
+			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-lg.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved large version ' . $upload["filename"] . '-lg.' . $upload["extension"]), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved large version ' . $upload["filename"] . '-lg.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
 		}
 
 		if ($imgresize_log == 1) JLog::add(JText::_('End RSFP Image Resize'), JLog::INFO, 'imageupload');
