@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit1f47e521aa532623ee8c604463465c1e
 {
     public static $classMap = array (
-        'Eventviva\\ImageResize' => __DIR__ . '/..' . '/eventviva/php-image-resize/src/ImageResize.php',
+        'Eventviva\\ImageResize' => __DIR__ . '/..' . '/eventviva/php-image-resize/lib/ImageResize.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

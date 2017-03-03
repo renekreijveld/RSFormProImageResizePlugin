@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Eventviva\\ImageResize' => $vendorDir . '/eventviva/php-image-resize/src/ImageResize.php',
+    'Eventviva\\ImageResize' => $vendorDir . '/eventviva/php-image-resize/lib/ImageResize.php',
 );

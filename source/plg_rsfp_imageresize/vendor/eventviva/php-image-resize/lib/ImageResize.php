@@ -18,8 +18,9 @@ class ImageResize
 
     public $quality_jpg = 75;
     public $quality_png = 0;
+    public $quality_truecolor = TRUE;
 
-    public $interlace = 0;
+    public $interlace = 1;
 
     public $source_type;
 
@@ -96,6 +97,10 @@ class ImageResize
                 throw new \Exception('Unsupported image type');
                 break;
         }
+        
+        if (!$this->source_image) {
+            throw new \Exception('Could not load image');
+        }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
@@ -139,12 +144,10 @@ class ImageResize
     {
         $image_type = $image_type ?: $this->source_type;
 
-        $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
-
-        imageinterlace($dest_image, $this->interlace);
-
         switch ($image_type) {
             case IMAGETYPE_GIF:
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+
                 $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
                 imagecolortransparent($dest_image, $background);
                 imagefill($dest_image, 0, 0 , $background);
@@ -152,15 +155,29 @@ class ImageResize
                 break;
 
             case IMAGETYPE_JPEG:
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
                 break;
 
             case IMAGETYPE_PNG:
+                if (!$this->quality_truecolor && !imageistruecolor($this->source_image)) {
+                    $dest_image = imagecreate($this->getDestWidth(), $this->getDestHeight());
+
+                    $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
+                    imagecolortransparent($dest_image, $background);
+                    imagefill($dest_image, 0, 0 , $background);
+                } else {
+                    $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+                }
+
                 imagealphablending($dest_image, false);
                 imagesavealpha($dest_image, true);
                 break;
         }
+
+        imageinterlace($dest_image, $this->interlace);
 
         imagecopyresampled(
             $dest_image,
@@ -200,6 +217,8 @@ class ImageResize
         if ($permissions) {
             chmod($filename, $permissions);
         }
+        
+        imagedestroy($dest_image);
 
         return $this;
     }
@@ -215,7 +234,7 @@ class ImageResize
     {
         $string_temp = tempnam(sys_get_temp_dir(), '');
 
-        $this->save($string_temp, $image_type, $quality);
+        $this->save($string_temp , $image_type, $quality);
 
         $string = file_get_contents($string_temp);
 
@@ -312,7 +331,7 @@ class ImageResize
      * Resizes image according to given scale (proportionally)
      *
      * @param integer|float $scale
-     * @return \Eventviva\ImageResize
+     * @return \static
      */
     public function scale($scale)
     {
@@ -404,6 +423,40 @@ class ImageResize
 
             $this->dest_h = $height;
         }
+
+        return $this;
+    }
+
+    /**
+     * Crops image according to the given width, height, x and y
+     *
+     * @param integer $width
+     * @param integer $height
+     * @param integer $x
+     * @param integer $y
+     * @return \static
+     */
+    public function freecrop($width, $height, $x = false, $y = false)
+    {
+        if($x === false or $y === false){
+          return $this->crop($width, $height);
+        }
+        $this->source_x = $x;
+        $this->source_y = $y;
+        if($width > $this->getSourceWidth() - $x){
+          $this->source_w = $this->getSourceWidth() - $x;
+        } else {
+          $this->source_w = $width;
+        }
+
+        if($height > $this->getSourceHeight() - $y){
+          $this->source_h = $this->getSourceHeight() - $y;
+        } else {
+          $this->source_h = $height;
+        }
+
+        $this->dest_w = $width;
+        $this->dest_h = $height;
 
         return $this;
     }

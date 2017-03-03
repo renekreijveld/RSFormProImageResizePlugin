@@ -55,10 +55,7 @@ class ClassLoader
     private $classMap = array();
     private $classMapAuthoritative = false;
     private $missingClasses = array();
-<<<<<<< Updated upstream
-=======
     private $apcuPrefix;
->>>>>>> Stashed changes
 
     public function getPrefixes()
     {
@@ -358,13 +355,10 @@ class ClassLoader
             $file = $this->findFileWithExtension($class, '.hh');
         }
 
-<<<<<<< Updated upstream
-=======
         if (null !== $this->apcuPrefix) {
             apcu_add($this->apcuPrefix.$class, $file);
         }
 
->>>>>>> Stashed changes
         if (false === $file) {
             // Remember that this class does not exist.
             $this->missingClasses[$class] = true;
