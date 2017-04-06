@@ -1,8 +1,8 @@
 <?php
 /**
- * @version       1.0.0
- * @package       RSFPImageResize 1.0.0
- * @copyright (C) 2017 www.renekreijveld.nl
+ * @version       1.2
+ * @package       RSFPImageResize
+ * @copyright     (C) 2017 www.renekreijveld.nl
  * @license       GPL, http://www.gnu.org/copyleft/gpl.html
  */
 
