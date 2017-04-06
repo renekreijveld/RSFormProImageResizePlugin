@@ -1,1 +1,2 @@
-DELETE FROM `#__rsform_config` WHERE `SettingName` LIKE 'imgresize%';
+DELETE FROM `#__rsform_config`
+WHERE `SettingName` LIKE 'imgresize%';
