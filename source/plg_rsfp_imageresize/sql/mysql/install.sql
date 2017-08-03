@@ -1,4 +1,5 @@
 INSERT IGNORE INTO `#__rsform_config` (`SettingName`, `SettingValue`) VALUES ('imgresize_log', '0');
+INSERT IGNORE INTO `#__rsform_config` (`SettingName`, `SettingValue`) VALUES ('imgresize_enlarge', '0');
 INSERT IGNORE INTO `#__rsform_config` (`SettingName`, `SettingValue`) VALUES ('imgresize_do_tn', '1');
 INSERT IGNORE INTO `#__rsform_config` (`SettingName`, `SettingValue`) VALUES ('imgresize_tn_width', '150');
 INSERT IGNORE INTO `#__rsform_config` (`SettingName`, `SettingValue`) VALUES ('imgresize_tn_height', '150');

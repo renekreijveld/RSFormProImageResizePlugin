@@ -7,7 +7,7 @@
     <license>GNU General Public License version 3</license>
     <authorEmail>info@renekreijveld.nl</authorEmail>
     <authorUrl>www.renekreijveld.nl</authorUrl>
-    <version>1.3</version>
+    <version>1.4</version>
     <description><![CDATA[PLG_SYSTEM_RSFPIMAGERESIZE_DESC]]></description>
     <scriptfile>script.php</scriptfile>
 
@@ -21,7 +21,11 @@
             <file driver="mysql" charset="utf8">sql/mysql/uninstall.sql</file>
         </sql>
     </uninstall>
-
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
     <files>
         <folder>sql</folder>
         <folder>vendor</folder>

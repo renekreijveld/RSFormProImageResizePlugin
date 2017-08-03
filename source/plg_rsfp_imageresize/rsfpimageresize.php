@@ -1,6 +1,6 @@
 <?php
 /**
- * @version       1.3
+ * @version       1.4
  * @package       RSFPImageResize
  * @copyright     (C) 2017 www.renekreijveld.nl
  * @license       GPL, http://www.gnu.org/copyleft/gpl.html
@@ -35,6 +35,7 @@ class plgSystemRSFPImageResize extends JPlugin
 
 		// Get plugin settings
 		$imgresize_log = RSFormProHelper::getConfig('imgresize_log');
+		$do_enlarge    = RSFormProHelper::getConfig('imgresize_enlarge');
 		$do_tn         = RSFormProHelper::getConfig('imgresize_do_tn');
 		$tn_width      = RSFormProHelper::getConfig('imgresize_tn_width');
 		$tn_height     = RSFormProHelper::getConfig('imgresize_tn_height');
@@ -75,23 +76,40 @@ class plgSystemRSFPImageResize extends JPlugin
 		$org_width  = $image->getSourceWidth();
 		$org_height = $image->getSourceHeight();
 
-		if ($imgresize_log == 1) JLog::add(JText::_('Start processing file ' . $name . ' ' . $org_width . 'x' . $org_height), JLog::INFO, 'imageupload');
+		if ($imgresize_log == 1) {
+            JLog::add(JText::_('Start processing file ' . $name . ' ' . $org_width . 'x' . $org_height), JLog::INFO, 'imageupload');
+            JLog::add(JText::_('Enlarge enabled: ' . $do_enlarge), JLog::INFO, 'imageupload');
+        }
 
 		// Thumbnail
 		if (($tn_width > 0 || $tn_height > 0) && $do_tn == 1)
 		{
             if ($tn_crop == 1)
             {
-                $image->crop($tn_width, $tn_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->crop($tn_width, $tn_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->crop($tn_width, $tn_height);
+                }
             }
             else
-            {
-    			$image->resizeToBestFit($tn_width, $tn_height);
+            {    			
+                if ($do_enlarge == 1)
+                {
+                    $image->resizeToBestFit($tn_width, $tn_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->resizeToBestFit($tn_width, $tn_height);
+                }
             }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-tn.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved thumbnail version ' . $upload["filename"] . '-tn.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved thumbnail version ' . $upload["filename"] . '-tn.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height . ' Crop: ' . $tn_crop), JLog::INFO, 'imageupload');
 		}
 
 		// Extra small
@@ -99,16 +117,30 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
             if ($xs_crop == 1)
             {
-                $image->crop($xs_width, $xs_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->crop($xs_width, $xs_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->crop($xs_width, $xs_height);
+                }
             }
             else
             {
-    			$image->resizeToBestFit($xs_width, $xs_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->resizeToBestFit($xs_width, $xs_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->resizeToBestFit($xs_width, $xs_height);
+                }    			
             }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-xs.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved extra small version ' . $upload["filename"] . '-xs.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved extra small version ' . $upload["filename"] . '-xs.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height . ' Crop: ' . $xs_crop), JLog::INFO, 'imageupload');
 		}
 
 		// Small
@@ -116,16 +148,30 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
             if ($sm_crop == 1)
             {
-                $image->crop($sm_width, $sm_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->crop($sm_width, $sm_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->crop($sm_width, $sm_height);
+                }
             }
             else
             {
-    			$image->resizeToBestFit($sm_width, $sm_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->resizeToBestFit($sm_width, $sm_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->resizeToBestFit($sm_width, $sm_height);
+                }
             }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-sm.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved small version ' . $upload["filename"] . '-sm.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved small version ' . $upload["filename"] . '-sm.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height . ' Crop: ' . $sm_crop), JLog::INFO, 'imageupload');
 		}
 
 		// Medium
@@ -133,16 +179,30 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
             if ($md_crop == 1)
             {
-                $image->crop($md_width, $md_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->crop($md_width, $md_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->crop($md_width, $md_height);
+                }
             }
             else
             {
-    			$image->resizeToBestFit($md_width, $md_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->resizeToBestFit($md_width, $md_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->resizeToBestFit($md_width, $md_height);
+                }
             }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-md.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved medium version ' . $upload["filename"] . '-md.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved medium version ' . $upload["filename"] . '-md.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height . ' Crop: ' . $md_crop), JLog::INFO, 'imageupload');
 		}
 
 		// Large
@@ -150,16 +210,30 @@ class plgSystemRSFPImageResize extends JPlugin
 		{
             if ($lg_crop == 1)
             {
-                $image->crop($lg_width, $lg_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->crop($lg_width, $lg_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->crop($lg_width, $lg_height);
+                }
             }
             else
             {
-    			$image->resizeToBestFit($lg_width, $lg_height);
+                if ($do_enlarge == 1)
+                {
+                    $image->resizeToBestFit($lg_width, $lg_height, $allow_enlarge = True);
+                }
+                else
+                {
+                    $image->resizeToBestFit($lg_width, $lg_height);
+                }
             }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-lg.' . $upload["extension"]);
-			if ($imgresize_log == 1) JLog::add(JText::_('Saved large version ' . $upload["filename"] . '-lg.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height), JLog::INFO, 'imageupload');
+			if ($imgresize_log == 1) JLog::add(JText::_('Saved large version ' . $upload["filename"] . '-lg.' . $upload["extension"] . ' ' . $dst_width . 'x' . $dst_height . ' Crop: ' . $lg_crop), JLog::INFO, 'imageupload');
 		}
 
 		if ($imgresize_log == 1) JLog::add(JText::_('End RSFP Image Resize'), JLog::INFO, 'imageupload');
@@ -173,6 +247,7 @@ class plgSystemRSFPImageResize extends JPlugin
 
 		ob_start();
 		$imgresize_log = RSFormProHelper::getConfig('imgresize_log');
+        $do_enlarge    = RSFormProHelper::getConfig('imgresize_enlarge');
 		$do_tn         = RSFormProHelper::getConfig('imgresize_do_tn');
 		$tn_width      = RSFormProHelper::getConfig('imgresize_tn_width');
 		$tn_height     = RSFormProHelper::getConfig('imgresize_tn_height');
@@ -212,6 +287,27 @@ class plgSystemRSFPImageResize extends JPlugin
                             <input type="radio" id="rsformConfig_imgresize_log0" name="rsformConfig[imgresize_log]"
                                    value="0" <?php if ($imgresize_log == 0) echo 'checked="checked"'; ?> />
                             <label for="rsformConfig_imgresize_log0">
+								<?php echo JText::_('JNO'); ?>
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label id="rsformConfig_imgresize_enlarge-lbl" for="rsformConfig_imgresize_enlarge">
+							<?php echo JText::_('RSFP_IMAGERESIZE_ENLARGE_LABEL'); ?>
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <fieldset id="rsformConfig_imgresize_enlarge" class="btn-group radio">
+                            <input type="radio" id="rsformConfig_imgresize_enlarge1" name="rsformConfig[imgresize_enlarge]"
+                                   value="1" <?php if ($do_enlarge == 1) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_enlarge1">
+								<?php echo JText::_('JYES'); ?>
+                            </label>
+                            <input type="radio" id="rsformConfig_imgresize_enlarge0" name="rsformConfig[imgresize_enlarge]"
+                                   value="0" <?php if ($do_enlarge == 0) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_enlarge0">
 								<?php echo JText::_('JNO'); ?>
                             </label>
                         </fieldset>

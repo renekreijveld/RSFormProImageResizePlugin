@@ -1,0 +1,1 @@
+INSERT IGNORE INTO `#__rsform_config` (`SettingName`, `SettingValue`) VALUES ('imgresize_enlarge', '0');
