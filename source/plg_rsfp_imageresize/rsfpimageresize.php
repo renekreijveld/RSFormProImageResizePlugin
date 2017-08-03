@@ -1,6 +1,6 @@
 <?php
 /**
- * @version       1.2
+ * @version       1.3
  * @package       RSFPImageResize
  * @copyright     (C) 2017 www.renekreijveld.nl
  * @license       GPL, http://www.gnu.org/copyleft/gpl.html
@@ -38,18 +38,23 @@ class plgSystemRSFPImageResize extends JPlugin
 		$do_tn         = RSFormProHelper::getConfig('imgresize_do_tn');
 		$tn_width      = RSFormProHelper::getConfig('imgresize_tn_width');
 		$tn_height     = RSFormProHelper::getConfig('imgresize_tn_height');
+		$tn_crop       = RSFormProHelper::getConfig('imgresize_tn_crop');
 		$do_xs         = RSFormProHelper::getConfig('imgresize_do_xs');
 		$xs_width      = RSFormProHelper::getConfig('imgresize_xs_width');
 		$xs_height     = RSFormProHelper::getConfig('imgresize_xs_height');
+		$xs_crop       = RSFormProHelper::getConfig('imgresize_xs_crop');
 		$do_sm         = RSFormProHelper::getConfig('imgresize_do_sm');
 		$sm_width      = RSFormProHelper::getConfig('imgresize_sm_width');
 		$sm_height     = RSFormProHelper::getConfig('imgresize_sm_height');
+		$sm_crop       = RSFormProHelper::getConfig('imgresize_sm_crop');
 		$do_md         = RSFormProHelper::getConfig('imgresize_do_md');
 		$md_width      = RSFormProHelper::getConfig('imgresize_md_width');
 		$md_height     = RSFormProHelper::getConfig('imgresize_md_height');
+		$md_crop       = RSFormProHelper::getConfig('imgresize_tn_crop');
 		$do_lg         = RSFormProHelper::getConfig('imgresize_do_lg');
 		$lg_width      = RSFormProHelper::getConfig('imgresize_lg_width');
 		$lg_height     = RSFormProHelper::getConfig('imgresize_lg_height');
+		$lg_crop       = RSFormProHelper::getConfig('imgresize_tn_crop');
 
 		// Initialize logging
 		if ($imgresize_log == 1)
@@ -75,7 +80,14 @@ class plgSystemRSFPImageResize extends JPlugin
 		// Thumbnail
 		if (($tn_width > 0 || $tn_height > 0) && $do_tn == 1)
 		{
-			$image->resizeToBestFit($tn_width, $tn_height);
+            if ($tn_crop == 1)
+            {
+                $image->crop($tn_width, $tn_height);
+            }
+            else
+            {
+    			$image->resizeToBestFit($tn_width, $tn_height);
+            }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-tn.' . $upload["extension"]);
@@ -85,7 +97,14 @@ class plgSystemRSFPImageResize extends JPlugin
 		// Extra small
 		if (($xs_width > 0 || $xs_height > 0) && $do_xs == 1)
 		{
-			$image->resizeToBestFit($xs_width, $xs_height);
+            if ($xs_crop == 1)
+            {
+                $image->crop($xs_width, $xs_height);
+            }
+            else
+            {
+    			$image->resizeToBestFit($xs_width, $xs_height);
+            }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-xs.' . $upload["extension"]);
@@ -95,7 +114,14 @@ class plgSystemRSFPImageResize extends JPlugin
 		// Small
 		if (($sm_width > 0 || $sm_height > 0) && $do_sm == 1)
 		{
-			$image->resizeToBestFit($sm_width, $sm_height);
+            if ($sm_crop == 1)
+            {
+                $image->crop($sm_width, $sm_height);
+            }
+            else
+            {
+    			$image->resizeToBestFit($sm_width, $sm_height);
+            }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-sm.' . $upload["extension"]);
@@ -105,7 +131,14 @@ class plgSystemRSFPImageResize extends JPlugin
 		// Medium
 		if (($md_width > 0 || $md_height > 0) && $do_md == 1)
 		{
-			$image->resizeToBestFit($md_width, $md_height);
+            if ($md_crop == 1)
+            {
+                $image->crop($md_width, $md_height);
+            }
+            else
+            {
+    			$image->resizeToBestFit($md_width, $md_height);
+            }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-md.' . $upload["extension"]);
@@ -115,7 +148,14 @@ class plgSystemRSFPImageResize extends JPlugin
 		// Large
 		if (($lg_width > 0 || $lg_height > 0) && $do_lg == 1)
 		{
-			$image->resizeToBestFit($lg_width, $lg_height);
+            if ($lg_crop == 1)
+            {
+                $image->crop($lg_width, $lg_height);
+            }
+            else
+            {
+    			$image->resizeToBestFit($lg_width, $lg_height);
+            }
 			$dst_width  = floor($image->getDestWidth());
 			$dst_height = floor($image->getDestHeight());
 			$image->save($upload["dirname"] . '/' . $upload["filename"] . '-lg.' . $upload["extension"]);
@@ -136,18 +176,23 @@ class plgSystemRSFPImageResize extends JPlugin
 		$do_tn         = RSFormProHelper::getConfig('imgresize_do_tn');
 		$tn_width      = RSFormProHelper::getConfig('imgresize_tn_width');
 		$tn_height     = RSFormProHelper::getConfig('imgresize_tn_height');
+		$tn_crop       = RSFormProHelper::getConfig('imgresize_tn_crop');
 		$do_xs         = RSFormProHelper::getConfig('imgresize_do_xs');
 		$xs_width      = RSFormProHelper::getConfig('imgresize_xs_width');
 		$xs_height     = RSFormProHelper::getConfig('imgresize_xs_height');
+		$xs_crop       = RSFormProHelper::getConfig('imgresize_xs_crop');
 		$do_sm         = RSFormProHelper::getConfig('imgresize_do_sm');
 		$sm_width      = RSFormProHelper::getConfig('imgresize_sm_width');
 		$sm_height     = RSFormProHelper::getConfig('imgresize_sm_height');
+		$sm_crop       = RSFormProHelper::getConfig('imgresize_sm_crop');
 		$do_md         = RSFormProHelper::getConfig('imgresize_do_md');
 		$md_width      = RSFormProHelper::getConfig('imgresize_md_width');
 		$md_height     = RSFormProHelper::getConfig('imgresize_md_height');
+		$md_crop       = RSFormProHelper::getConfig('imgresize_tn_crop');
 		$do_lg         = RSFormProHelper::getConfig('imgresize_do_lg');
 		$lg_width      = RSFormProHelper::getConfig('imgresize_lg_width');
-		$lg_height     = RSFormProHelper::getConfig('imgresize_lg_height'); ?>
+		$lg_height     = RSFormProHelper::getConfig('imgresize_lg_height');
+		$lg_crop       = RSFormProHelper::getConfig('imgresize_tn_crop');?>
         <div id="page-imageresize">
             <fieldset class="adminform form-horizontal">
                 <h3><?php echo JText::_('RSFP_IMAGERESIZE_LOGGING'); ?></h3>
@@ -216,6 +261,27 @@ class plgSystemRSFPImageResize extends JPlugin
                                id="rsformConfig_imgresize_tn_height" value="<?php echo $tn_height; ?>"/>
                     </div>
                 </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label id="rsformConfig_imgresize_tn_crop-lbl" for="rsformConfig_imgresize_tn_crop">
+							<?php echo JText::_('RSFP_IMAGERESIZE_CROP_LABEL'); ?>
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <fieldset id="rsformConfig_imgresize_tn_crop" class="btn-group radio">
+                            <input type="radio" id="rsformConfig_imgresize_tn_crop1" name="rsformConfig[imgresize_tn_crop]"
+                                   value="1" <?php if ($tn_crop == 1) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_tn_crop1">
+								<?php echo JText::_('JYES'); ?>
+                            </label>
+                            <input type="radio" id="rsformConfig_imgresize_tn_crop0" name="rsformConfig[imgresize_tn_crop]"
+                                   value="0" <?php if ($tn_crop == 0) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_tn_crop0">
+								<?php echo JText::_('JNO'); ?>
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
                 <h3><?php echo JText::_('RSFP_IMAGERESIZE_XS'); ?></h3>
                 <div class="control-group">
                     <div class="control-label">
@@ -258,6 +324,27 @@ class plgSystemRSFPImageResize extends JPlugin
                     <div class="controls">
                         <input class="input-small" type="text" name="rsformConfig[imgresize_xs_height]"
                                id="rsformConfig_imgresize_xs_height" value="<?php echo $xs_height; ?>"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label id="rsformConfig_imgresize_xs_crop-lbl" for="rsformConfig_imgresize_xs_crop">
+							<?php echo JText::_('RSFP_IMAGERESIZE_CROP_LABEL'); ?>
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <fieldset id="rsformConfig_imgresize_xs_crop" class="btn-group radio">
+                            <input type="radio" id="rsformConfig_imgresize_xs_crop1" name="rsformConfig[imgresize_xs_crop]"
+                                   value="1" <?php if ($xs_crop == 1) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_xs_crop1">
+								<?php echo JText::_('JYES'); ?>
+                            </label>
+                            <input type="radio" id="rsformConfig_imgresize_xs_crop0" name="rsformConfig[imgresize_xs_crop]"
+                                   value="0" <?php if ($xs_crop == 0) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_xs_crop0">
+								<?php echo JText::_('JNO'); ?>
+                            </label>
+                        </fieldset>
                     </div>
                 </div>
                 <h3><?php echo JText::_('RSFP_IMAGERESIZE_SM'); ?></h3>
@@ -304,6 +391,27 @@ class plgSystemRSFPImageResize extends JPlugin
                                id="rsformConfig_imgresize_sm_height" value="<?php echo $sm_height; ?>"/>
                     </div>
                 </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label id="rsformConfig_imgresize_sm_crop-lbl" for="rsformConfig_imgresize_sm_crop">
+							<?php echo JText::_('RSFP_IMAGERESIZE_CROP_LABEL'); ?>
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <fieldset id="rsformConfig_imgresize_sm_crop" class="btn-group radio">
+                            <input type="radio" id="rsformConfig_imgresize_sm_crop1" name="rsformConfig[imgresize_sm_crop]"
+                                   value="1" <?php if ($sm_crop == 1) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_sm_crop1">
+								<?php echo JText::_('JYES'); ?>
+                            </label>
+                            <input type="radio" id="rsformConfig_imgresize_sm_crop0" name="rsformConfig[imgresize_sm_crop]"
+                                   value="0" <?php if ($sm_crop == 0) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_sm_crop0">
+								<?php echo JText::_('JNO'); ?>
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
                 <h3><?php echo JText::_('RSFP_IMAGERESIZE_MD'); ?></h3>
                 <div class="control-group">
                     <div class="control-label">
@@ -348,6 +456,27 @@ class plgSystemRSFPImageResize extends JPlugin
                                id="rsformConfig_imgresize_md_height" value="<?php echo $md_height; ?>"/>
                     </div>
                 </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label id="rsformConfig_imgresize_md_crop-lbl" for="rsformConfig_imgresize_md_crop">
+							<?php echo JText::_('RSFP_IMAGERESIZE_CROP_LABEL'); ?>
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <fieldset id="rsformConfig_imgresize_md_crop" class="btn-group radio">
+                            <input type="radio" id="rsformConfig_imgresize_md_crop1" name="rsformConfig[imgresize_md_crop]"
+                                   value="1" <?php if ($md_crop == 1) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_md_crop1">
+								<?php echo JText::_('JYES'); ?>
+                            </label>
+                            <input type="radio" id="rsformConfig_imgresize_md_crop0" name="rsformConfig[imgresize_md_crop]"
+                                   value="0" <?php if ($md_crop == 0) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_md_crop0">
+								<?php echo JText::_('JNO'); ?>
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
                 <h3><?php echo JText::_('RSFP_IMAGERESIZE_LG'); ?></h3>
                 <div class="control-group">
                     <div class="control-label">
@@ -390,6 +519,27 @@ class plgSystemRSFPImageResize extends JPlugin
                     <div class="controls">
                         <input class="input-small" type="text" name="rsformConfig[imgresize_lg_height]"
                                id="rsformConfig_imgresize_lg_height" value="<?php echo $lg_height; ?>"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label id="rsformConfig_imgresize_lg_crop-lbl" for="rsformConfig_imgresize_lg_crop">
+							<?php echo JText::_('RSFP_IMAGERESIZE_CROP_LABEL'); ?>
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <fieldset id="rsformConfig_imgresize_lg_crop" class="btn-group radio">
+                            <input type="radio" id="rsformConfig_imgresize_lg_crop1" name="rsformConfig[imgresize_lg_crop]"
+                                   value="1" <?php if ($lg_crop == 1) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_lg_crop1">
+								<?php echo JText::_('JYES'); ?>
+                            </label>
+                            <input type="radio" id="rsformConfig_imgresize_lg_crop0" name="rsformConfig[imgresize_lg_crop]"
+                                   value="0" <?php if ($lg_crop == 0) echo 'checked="checked"'; ?> />
+                            <label for="rsformConfig_imgresize_lg_crop0">
+								<?php echo JText::_('JNO'); ?>
+                            </label>
+                        </fieldset>
                     </div>
                 </div>
             </fieldset>
